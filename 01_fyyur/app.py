@@ -12,7 +12,6 @@ import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
 from forms import *
-from models import *
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -21,6 +20,7 @@ from models import *
 app = Flask(__name__)
 moment = Moment(app)
 app.config.from_object('config')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # TODO: connect to a local postgresql database
@@ -29,6 +29,7 @@ db = SQLAlchemy(app)
 # Models.
 #----------------------------------------------------------------------------#
 
+# Venue model
 class Venue(db.Model):
     __tablename__ = 'Venue'
 
@@ -40,9 +41,19 @@ class Venue(db.Model):
     phone = db.Column(db.String(120))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
+    genres = db.Column(db.ARRAY(db.String()))
+    website = db.Column(db.String(500))
+    seeking_talent = db.Column(db.Boolean, default=True)
+    seeking_description = db.Column(db.String(120))
+    shows = db.relationship('Show', backref='venue')
+
+    def __repr__(self):
+      return f'<Venue {self.venue_id}>'
+
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
+# Artist model
 class Artist(db.Model):
     __tablename__ = 'Artist'
 
@@ -54,10 +65,32 @@ class Artist(db.Model):
     genres = db.Column(db.String(120))
     image_link = db.Column(db.String(500))
     facebook_link = db.Column(db.String(120))
+    website = db.Column(db.String(500))
+    seeking_talent = db.Column(db.Boolean, default=True)
+    seeking_description = db.Column(db.String(120))
+    shows = db.relationship('Show', backref='venue')
+
+    def __repr__(self):
+      return f'<Artist {self.artist_id}>'
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
+
+# Show model
+class Show(db.Model):
+  __tablename__ = 'Show'
+  """docstring for ClassName"""
+
+  id = db.Column(db.Integer, primary_key=True)
+  artist_id = db.Column(db.Integer, db.ForeignKey('Artist.id'))
+  venue_id = db.Column(db.Integer, db.ForeignKey('Venue.id'))
+  start_time = db.Column(db.DateTime, default=datetime.now)
+
+
+  def __repr__(self):
+    return f'<Show {self.id}, Artist {self.artist_id}, Venue {self.venue_id}>'
+    
 
 #----------------------------------------------------------------------------#
 # Filters.
@@ -87,6 +120,21 @@ def index():
 
 @app.route('/venues')
 def venues():
+
+  data = []
+
+  venues = Venue.query.all()
+  venue_locations = set()
+  for venue in venues:
+    venue_locations.add((venue.city, venue.state))
+
+
+  for place in venue_cities:
+    data.append({
+      "city": place[0],
+      "state": place[1],
+      "venues": []
+      })
   # TODO: replace with real venues data.
   #       num_shows should be aggregated based on number of upcoming shows per venue.
   data=[{
@@ -514,7 +562,7 @@ if not app.debug:
 
 # Default port:
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
 
 # Or specify port manually:
 '''
