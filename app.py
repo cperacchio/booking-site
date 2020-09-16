@@ -17,8 +17,10 @@ from models import app, db, Venue, Artist, Show
 # Initialize App 
 #----------------------------------------------------------------------------#
 
-app = Flask(__name__)
-db.init_app(app)
+moment = Moment(app)
+app.config.from_object('config')
+
+db = db.init_app(app)
 
 #----------------------------------------------------------------------------#
 # Filters.
