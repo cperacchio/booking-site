@@ -11,7 +11,14 @@ import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
 from forms import *
-from models import *
+from models import app, db, Venue, Artist, Show
+
+#----------------------------------------------------------------------------#
+# Initialize App 
+#----------------------------------------------------------------------------#
+
+app = Flask(__name__)
+db.init_app(app)
 
 #----------------------------------------------------------------------------#
 # Filters.

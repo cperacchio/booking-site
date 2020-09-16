@@ -1,13 +1,12 @@
 #----------------------------------------------------------------------------#
 # Imports
 #----------------------------------------------------------------------------#
-
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_migrate import Migrate
 import dateutil.parser
 from flask import Flask, render_template, request, Response, flash, redirect, url_for
 from flask_moment import Moment
-from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
@@ -17,18 +16,15 @@ from flask_wtf import Form
 #----------------------------------------------------------------------------#
 
 app = Flask(__name__)
-moment = Moment(app)
-app.config.from_object('config')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#moment = Moment(app)
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
-#db.create_all(app)
-#migrate = Migrate(app, db)
-#db_uri = environ.get('postgres://claireperacchio@localhost:5432/fyyur')
-#engine = create_engine(db_uri, echo=True)
+#app.config.from_object('config')
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # TODO: connect to a local postgresql database
-#Base.metadata.create_all(engine)
+
 
 #----------------------------------------------------------------------------#
 # Models.
