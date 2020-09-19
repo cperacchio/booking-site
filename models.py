@@ -15,16 +15,10 @@ from flask_wtf import Form
 # App Config.
 #----------------------------------------------------------------------------#
 
+# TODO: connect to a local postgresql database
 app = Flask(__name__)
-#moment = Moment(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
-#app.config.from_object('config')
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# TODO: connect to a local postgresql database
-
 
 #----------------------------------------------------------------------------#
 # Models.
