@@ -17,7 +17,7 @@ from flask_wtf import Form
 
 # TODO: connect to a local postgresql database
 app = Flask(__name__)
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 migrate = Migrate(app, db)
 
 #----------------------------------------------------------------------------#

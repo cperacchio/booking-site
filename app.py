@@ -75,9 +75,10 @@ def venues():
   # TODO: replace with real venues data.
   
   # get upcoming shows number for each venue 
+
   for venue in venues:
     number_upcoming_shows = 0
-
+    Venue.id=venue_id
     shows = Show.query.get(venue_id) 
 
   # add upcoming shows
@@ -95,7 +96,7 @@ def venues():
           })
 
     # return venues page with updated venue data
-    return render_template('pages/venues.html', areas=data);
+    return render_template('pages/venues.html', areas=venue_data)
 
 
   # data=[{
