@@ -16,9 +16,13 @@ from flask_wtf import Form
 #----------------------------------------------------------------------------#
 
 # TODO: connect to a local postgresql database
-app = Flask(__name__)
 db = SQLAlchemy()
-migrate = Migrate(app, db)
+def db_setup(app):
+  app.config.from_object('config')
+  db.app = app
+  db.init_app(app)
+  migrate = Migrate(app, db)
+  return db
 
 #----------------------------------------------------------------------------#
 # Models.
