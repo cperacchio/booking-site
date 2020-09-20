@@ -78,7 +78,7 @@ def venues():
   for venue in venues:
     number_upcoming_shows = 0
 
-    shows = Show.query.filter_by(venue_id=venue.id).all()
+    shows = Show.query.get(venue_id) 
 
   # add upcoming shows
     for show in shows:
@@ -142,7 +142,7 @@ def search_venues():
   for venue in venues:
     number_upcoming_shows = 0
 
-    shows = Show.query.filter_by(venue_id=venue.id).all()
+    shows = Show.query.get(venue_id) 
 
   # add upcoming shows
   for show in shows:
@@ -174,10 +174,10 @@ def search_venues():
 def show_venue(venue_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id
-  venue = Venue.query.filter_by(venue_id=venue.id).first()
+  venue = Venue.query.get(venue_id) 
 
   # get shows for each venue
-  shows = Show.query.filter_by(venue_id=venue.id).all()
+  shows = Show.query.get(venue_id) 
 
   # get upcoming shows
   def upcoming_shows():
