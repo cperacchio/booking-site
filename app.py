@@ -94,8 +94,8 @@ def venues():
           "number_upcoming_shows": number_upcoming_shows
         })
 
-    # return venues page with updated venue data
-    return render_template('pages/venues.html', areas=venue_data)
+  # return venues page with updated venue data
+  return render_template('pages/venues.html', areas=venue_data)
 
 
   # data=[{
@@ -419,15 +419,48 @@ def search_artists():
   # TODO: implement search on artists with partial string search. Ensure it is case-insensitive.
   # seach for "A" should return "Guns N Petals", "Matt Quevado", and "The Wild Sax Band".
   # search for "band" should return "The Wild Sax Band".
-  response={
-    "count": 1,
-    "data": [{
-      "id": 4,
-      "name": "Guns N Petals",
-      "num_upcoming_shows": 0,
-    }]
+
+  #get the search string text
+  search_term = request.form.get('search_term', '')
+
+  #find matching artists, using case-insensitive partial string search
+  artists = Artist.query.filter(Artist.name.ilike(f'%search_term%')).all()
+
+  response = {
+    "count": len(artists),
+    "artist_data": []
   }
+
+  # get upcoming shows number for each artist 
+  for artist in artists:
+    number_upcoming_shows = 0
+
+    shows = Show.query.filter(Artist.id==artist_id)
+
+
+    # add upcoming shows
+    for show in shows:
+      if show.start_time > datetime.now():
+        number_upcoming_shows += 1
+
+  # add venue info to response user sees
+    response['artist_data'].append({
+      "id": artist.id,
+      "name": artist.name,
+      "number_upcoming_shows": number_upcoming_shows
+    })
+
+  #return response showing search results
   return render_template('pages/search_artists.html', results=response, search_term=request.form.get('search_term', ''))
+ 
+  # response={
+  #   "count": 1,
+  #   "data": [{
+  #     "id": 4,
+  #     "name": "Guns N Petals",
+  #     "num_upcoming_shows": 0,
+  #   }]
+  # }
 
 @app.route('/artists/<int:artist_id>')
 def show_artist(artist_id):
