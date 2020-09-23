@@ -325,18 +325,17 @@ def create_venue_submission():
   try:
     # add user-submitted data
     form = VenueForm()
-    name = form.name.data
-    city = form.city.data
-    state = form.state.data
-    address = form.address.data
-    phone = form.phone.data
-    # validate phone number? e.g. phone_validator(phone)
-    genres = form.genres.data
-    facebook_link = form.facebook_link.data
-    website = form.website.data
-    image_link = form.image_link.data
-    seeking_talent = form.seeking_talent.data
-    seeking_description = form.seeking_description.data
+    venue.name = form.name.data
+    venue.city = form.city.data
+    venue.state = form.state.data
+    venue.address = form.address.data
+    venue.phone = form.phone.data
+    venue.genres = form.genres.data
+    venue.facebook_link = form.facebook_link.data
+    venue.website = form.website.data
+    venue.image_link = form.image_link.data
+    venue.seeking_talent = form.seeking_talent.data
+    venue.seeking_description = form.seeking_description.data
 
     #create new venues from user form submissions
     venue = Venue(name=name, city=city, state=state, address=address, phone=phone, genres=genres,
@@ -658,7 +657,6 @@ def edit_artist_submission(artist_id):
     artist.state = form.state.data
     artist.address = form.address.data
     artist.phone = form.phone.data
-    # validate phone number? e.g. phone_validator(phone)
     artist.facebook_link = form.facebook_link.data
     artist.website = form.website.data
     artist.image_link = form.image_link.data
