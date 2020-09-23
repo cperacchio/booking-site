@@ -76,7 +76,7 @@ def venues():
 
   for venue in venues:
     number_upcoming_shows = 0
-    shows = Show.query.filter(Venue.id==venue_id) 
+    shows = Show.query.filterby(Venue.id==venue_id)
 
   # add upcoming shows
     for show in shows:
@@ -323,26 +323,20 @@ def create_venue_submission():
 
   # catch errors with try/except
   try:
-    # add user-submitted data
-    form = VenueForm()
-    venue.name = form.name.data
-    venue.city = form.city.data
-    venue.state = form.state.data
-    venue.address = form.address.data
-    venue.phone = form.phone.data
-    venue.genres = form.genres.data
-    venue.facebook_link = form.facebook_link.data
-    venue.website = form.website.data
-    venue.image_link = form.image_link.data
-    venue.seeking_talent = form.seeking_talent.data
-    venue.seeking_description = form.seeking_description.data
-
-    #create new venues from user form submissions
-    venue = Venue(name=name, city=city, state=state, address=address, phone=phone, genres=genres,
-      facebook_link=facebook_link, website=website, image_link=image_link, seeking_talent=seeking_talent,
-      seeking_description=seeking_description)
-
-    #add venue to session and then commit to database
+    # add user-submitted data and commit to db
+    venue = Venue(
+      name = request.form.get('name'),
+      city = request.form.get('city'),
+      state = request.form.get('state'),
+      address = request.form.get('address'),
+      phone = request.form.get('phone'),
+      genres = request.form.getlist('genres'),
+      image_link = request.form.get('image_link'),
+      facebook_link = request.form.get('facebook_link'),
+      website = request.form.get('website'),
+      seeking_talent = True if 'seeking_talent' in request.form else False,
+      seeking_description = request.form.get('seeking_description')
+    )
     db.session.add(venue)
     db.session.commit()
 
