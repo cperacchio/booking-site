@@ -493,7 +493,6 @@ def show_artist(artist_id):
     "id": artist.id,
     "name": artist.name,
     "genres": artist.genres,
-    "address": artist.address,
     "city": artist.city,
     "state": artist.state,
     "phone": artist.phone,
@@ -797,10 +796,7 @@ def shows():
   for show in shows:
     shows_data.append({
       "venue_id": show.venue_id,
-      "name": show.name,
       "artist_id": show.artist_id,
-      "artist_name": show.artist.name,
-      "artist_image_link": show.artist.image_link,
       "start_time": format_datetime(str(show.start_time)) 
       })
 
@@ -856,11 +852,8 @@ def create_show_submission():
   try:
     # get user submission from form
     show = Show(
-      name = request.form.get('name'),
-      artist_name = request.form.get('artist_name'),
-      image_link = request.form.get('image_link'),
-      artist_id = request.form.get('artist_id'),
       venue_id = request.form.get('venue_id'),
+      artist_id = request.form.get('artist_id'),
       start_time = request.form.get('start_time')
       )
     db.session.add(show)
