@@ -7,6 +7,13 @@ Fyyur is a musical venue and artist booking site that facilitates the discovery 
 
 Your job is to build out the data models to power the API endpoints for the Fyyur site by connecting to a PostgreSQL database for storing, querying, and creating information about artists and venues on Fyyur.
 
+### Skills covered
+
+- Running Create, Read, Update, and Delete (CRUD) operations
+- Applying these operations across both databases and web applications
+- Setting up relationships between elements of an application
+- Thinking through important principles and patterns in building data models for a web application
+
 ### Overview
 
 This app is nearly complete. It is only missing one thing… real data! While the views and controllers are defined in this application, it is missing models and model interactions to be able to store retrieve, and update data from a database. By the end of this project, you should have a fully functioning site that is at least capable of doing the following, if not more, using a PostgreSQL database:
@@ -17,7 +24,7 @@ This app is nearly complete. It is only missing one thing… real data! While th
 
 We want Fyyur to be the next new platform that artists and musical venues can use to find each other, and discover new music shows. Let's make that happen!
 
-### Tech Stack
+### Tech stack
 
 Our tech stack will include:
 
@@ -82,7 +89,7 @@ Instructions
   6. Serve venue and artist detail pages, powering the `<venue|artist>/<id>` endpoints that power the detail pages.
 
 
-Acceptance Criteria
+Acceptance criteria
 -----
 
 1. The web app should be successfully connected to a PostgreSQL database. A local connection to a database on your local computer is fine.
@@ -99,16 +106,6 @@ Acceptance Criteria
   * The right _type_ of relationship and parent-child dynamics between models should be accurately identified and fit the needs of this particular application.
   * The relationship between the models should be accurately configured, and referential integrity amongst the models should be preserved.
   * `flask db migrate` should work, and populate my local postgres database with properly configured tables for this application's objects, including proper columns, column data types, constraints, defaults, and relationships that completely satisfy the needs of this application. The proper type of relationship between venues, artists, and shows should be configured.
-
-##### Stand Out
-
-Looking to go above and beyond? This is the right section for you! Here are some challenges to make your submission stand out:
-
-*  Implement artist availability. An artist can list available times that they can be booked. Restrict venues from being able to create shows with artists during a show time that is outside of their availability.
-* Show Recent Listed Artists and Recently Listed Venues on the homepage, returning results for Artists and Venues sorting by newly created. Limit to the 10 most recently listed items.
-* Implement Search Artists by City and State, and Search Venues by City and State. Searching by "San Francisco, CA" should return all artists or venues in San Francisco, CA.
-
-Best of luck in your final project! Fyyur depends on you!
 
 ### Development Setup
 
