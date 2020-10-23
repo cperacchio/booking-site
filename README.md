@@ -34,7 +34,7 @@ Our tech stack will include:
 * **Flask-Migrate** for creating and running schema migrations
 * **HTML**, **CSS**, and **Javascript** with [Bootstrap 3](https://getbootstrap.com/docs/3.4/customize/) for our website's frontend
 
-### Main Files: Project Structure
+### Project structure
 
   ```sh
   ├── README.md
@@ -107,7 +107,7 @@ Acceptance criteria
   * The relationship between the models should be accurately configured, and referential integrity amongst the models should be preserved.
   * `flask db migrate` should work, and populate my local postgres database with properly configured tables for this application's objects, including proper columns, column data types, constraints, defaults, and relationships that completely satisfy the needs of this application. The proper type of relationship between venues, artists, and shows should be configured.
 
-### Development Setup
+### Development setup
 
 First, [install Flask](http://flask.pocoo.org/docs/1.0/installation/#install-flask) if you haven't already.
 
